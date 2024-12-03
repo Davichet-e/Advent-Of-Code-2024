@@ -13,7 +13,7 @@ fn part2(first_group: &[usize], second_group: &[usize]) {
         // Could be improved using a HM as a cache
         similarity_score += n * second_group.iter().filter(|&n2| n == n2).count();
     }
-    println!("{similarity_score}")
+    println!("{similarity_score}");
 }
 
 pub fn day1() {

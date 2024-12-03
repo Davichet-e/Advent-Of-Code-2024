@@ -18,7 +18,7 @@ fn part2(reports: &[Report]) {
     let num_safe_reports = reports
         .iter()
         .filter(|&report| {
-            if report_is_safe(&&report) {
+            if report_is_safe(&report) {
                 return true;
             }
             let mut report_cloned = report.clone();
@@ -28,7 +28,7 @@ fn part2(reports: &[Report]) {
                 if report_is_safe(&&report_cloned) {
                     return true;
                 }
-                report_cloned = report.clone();
+                report_cloned.clone_from(report);
             }
             false
         })
@@ -49,6 +49,6 @@ pub fn day2() {
         .collect();
 
     part1(&reports);
-    part2(&reports)
+    part2(&reports);
     // part2(&first_group, &second_group);
 }
