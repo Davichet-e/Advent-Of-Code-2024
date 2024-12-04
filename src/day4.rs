@@ -10,11 +10,9 @@ MAMMMXMMMM
 MXMXAXMASX
 "#;
 
-fn check_sequential(string: &str) -> usize {
-    string.matches("XMAS").count()
-}
-
-const PATTERS_P1: [[[i8; 2]; 3]; 6] = [
+const PATTERS_P1: [[[i16; 2]; 3]; 8] = [
+    [[0, 1], [0, 2], [0, 3]],       // Sequential
+    [[0, -1], [0, -2], [0, -3]],    // Reverse sequential
     [[1, 1], [2, 2], [3, 3]],       // Diagonal left down
     [[1, -1], [2, -2], [3, -3]],    // Diagonal right down
     [[-1, 1], [-2, 2], [-3, 3]],    // Diagonal left up
@@ -29,10 +27,10 @@ fn check_patterns_p1(input: &[&str], x: usize, y: usize) -> usize {
         .filter(|pattern| {
             pattern.iter().enumerate().all(|(i, [delta_y, delta_x])| {
                 input
-                    .get((y as i8 + delta_y) as usize)
+                    .get((y as i16 + delta_y) as usize)
                     .unwrap_or(&"")
                     .chars()
-                    .nth((x as i8 + delta_x) as usize)
+                    .nth((x as i16 + delta_x) as usize)
                     .unwrap_or('Z')
                     == "MAS".chars().nth(i).unwrap()
             })
@@ -55,14 +53,12 @@ fn part1(string: &str) {
             })
             .sum();
         acc + count
-            + check_sequential(line)
-            + check_sequential(&line.chars().rev().collect::<String>())
     });
 
     println!("{result}");
 }
 
-const PATTERS_P2: [[(i8, i8, char); 4]; 4] = [
+const PATTERS_P2: [[(i16, i16, char); 4]; 4] = [
     [(-1, -1, 'M'), (1, 1, 'S'), (1, -1, 'M'), (-1, 1, 'S')],
     [(-1, -1, 'S'), (1, 1, 'M'), (1, -1, 'S'), (-1, 1, 'M')],
     [(-1, -1, 'M'), (1, 1, 'S'), (1, -1, 'S'), (-1, 1, 'M')],
@@ -75,10 +71,10 @@ fn check_patterns_p2(input: &[&str], x: usize, y: usize) -> usize {
         .filter(|pattern| {
             pattern.iter().all(|(delta_y, delta_x, c)| {
                 input
-                    .get((y as i8 + delta_y) as usize)
+                    .get((y as i16 + delta_y) as usize)
                     .unwrap_or(&"")
                     .chars()
-                    .nth((x as i8 + delta_x) as usize)
+                    .nth((x as i16 + delta_x) as usize)
                     .unwrap_or('Z')
                     == *c
             })
