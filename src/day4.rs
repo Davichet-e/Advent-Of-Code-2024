@@ -1,15 +1,3 @@
-const SAMPLE: &str = r#"MMMSXXMASM
-MSAMXMSMSA
-AMXSXMAAMM
-MSAMASMSMX
-XMASAMXAMM
-XXAMMXXAMA
-SMSMSASXSS
-SAXAMASAAA
-MAMMMXMMMM
-MXMXAXMASX
-"#;
-
 const PATTERS_P1: [[[i16; 2]; 3]; 8] = [
     [[0, 1], [0, 2], [0, 3]],       // Sequential
     [[0, -1], [0, -2], [0, -3]],    // Reverse sequential
