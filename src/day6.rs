@@ -37,21 +37,25 @@ fn get_new_coordinates(
     }
 }
 
-fn part2(result: HashSet<(usize, usize)>, initial_position: (usize, usize), input: Vec<&str>) {
-    let result: usize = result
+fn part2(
+    seen_positions: HashSet<(usize, usize)>,
+    initial_position: (usize, usize),
+    input: Vec<&str>,
+) {
+    let result: usize = seen_positions
         .into_iter()
         .filter(|(x, y)| {
             if (*x, *y) == initial_position {
                 return false;
             }
 
-            part2_walker(&input, initial_position, (*x, *y))
+            is_there_loop(&input, initial_position, (*x, *y))
         })
         .count();
     println!("Part 2: {result}");
 }
 
-fn part2_walker(
+fn is_there_loop(
     lines: &[&str],
     initial_position: (usize, usize),
     new_obstacle: (usize, usize),
