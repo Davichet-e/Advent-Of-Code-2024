@@ -14,8 +14,7 @@ pub fn day7() {
 
             let test_value: usize = test_value.parse().unwrap();
             let operators = [
-                '+', '*',
-                // '|' // toggle comment for part 1/2
+                '+', '*', '|', // toggle comment for part 1/2
             ];
             let yes = repeat_n(operators, numbers.len() - 1)
                 .multi_cartesian_product()
@@ -27,7 +26,17 @@ pub fn day7() {
                         .for_each(|(operator, &n)| match operator {
                             '+' => acc += n,
                             '*' => acc *= n,
-                            // '|' => acc = (acc.to_string() + &n.to_string()).parse().unwrap(), // toggle comment for part 1/2
+                            '|' => {
+                                acc = {
+                                    let mut e = 1;
+                                    // Concatenate 2 numbers without strings
+                                    while n / e != 0 {
+                                        e *= 10;
+                                    }
+
+                                    acc * e + n
+                                }
+                            }
                             _ => unreachable!(),
                         });
 
