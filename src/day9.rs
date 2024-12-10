@@ -80,16 +80,16 @@ fn part2(blocks: &[i64]) {
 pub fn day9() {
     let string = include_str!("../inputs/day9").trim_end();
 
-    let mut vd = Vec::new();
+    let mut blocks = Vec::new();
     string
         .chars()
         .enumerate()
         .fold(0, |curr_id, (i, n_blocks)| {
             (0..n_blocks.to_digit(10).unwrap()).for_each(|_| {
                 if i % 2 == 0 {
-                    vd.push(curr_id);
+                    blocks.push(curr_id);
                 } else {
-                    vd.push(-1);
+                    blocks.push(-1);
                 }
             });
             if i % 2 == 0 {
@@ -98,6 +98,6 @@ pub fn day9() {
                 curr_id
             }
         });
-    part1(&vd);
-    part2(&vd);
+    part1(&blocks);
+    part2(&blocks);
 }

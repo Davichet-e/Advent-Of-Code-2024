@@ -1,4 +1,4 @@
-const PATTERS_P1: [[[i16; 2]; 3]; 8] = [
+const PATTERNS_P1: [[[i16; 2]; 3]; 8] = [
     [[0, 1], [0, 2], [0, 3]],       // Sequential
     [[0, -1], [0, -2], [0, -3]],    // Reverse sequential
     [[1, 1], [2, 2], [3, 3]],       // Diagonal left down
@@ -10,7 +10,7 @@ const PATTERS_P1: [[[i16; 2]; 3]; 8] = [
 ];
 
 fn check_patterns_p1(input: &[&str], x: usize, y: usize) -> usize {
-    PATTERS_P1
+    PATTERNS_P1
         .iter()
         .filter(|pattern| {
             pattern.iter().enumerate().all(|(i, [delta_y, delta_x])| {
