@@ -47,5 +47,5 @@ pub fn day13() {
         )
         .sum();
 
-    println!("{sum}")
+    println!("{sum}");
 }

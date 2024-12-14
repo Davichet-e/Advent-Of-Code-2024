@@ -22,7 +22,7 @@ fn part1(vd: &[i64]) {
 
 fn part2(blocks: &[i64]) {
     let mut blocks_parsed = VecDeque::new();
-    blocks.iter().for_each(|&id| {
+    for &id in blocks {
         let (last_id, acc) = blocks_parsed.pop_back().unwrap_or((-2, 0));
         if last_id == id {
             blocks_parsed.push_back((id, acc + 1));
@@ -32,7 +32,7 @@ fn part2(blocks: &[i64]) {
             }
             blocks_parsed.push_back((id, 1));
         }
-    });
+    }
     let blocks_reversed: VecDeque<(i64, i64)> = blocks_parsed
         .clone()
         .into_iter()
@@ -40,16 +40,16 @@ fn part2(blocks: &[i64]) {
         .filter(|(id, _)| *id != -1)
         .collect();
 
-    blocks_reversed.iter().for_each(|(new_id, number)| {
+    for (new_id, number) in &blocks_reversed {
         let Some(position) = blocks_parsed.iter().position(|(id, _)| id == new_id) else {
-            return;
+            continue;
         };
         let Some((_, (pos, item_to_edit))) = blocks_parsed
             .iter()
             .enumerate()
             .find_position(|(i, (id, n_times))| *id == -1 && n_times >= number && *i < position)
         else {
-            return;
+            continue;
         };
         if item_to_edit.1 > *number {
             blocks_parsed.insert(pos + 1, (-1, item_to_edit.1 - *number));
@@ -59,7 +59,7 @@ fn part2(blocks: &[i64]) {
             blocks_parsed[pos] = (*new_id, *number);
             blocks_parsed[position] = (-1, *number);
         }
-    });
+    }
 
     let (result, _) = blocks_parsed
         .iter()

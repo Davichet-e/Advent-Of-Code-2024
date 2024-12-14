@@ -5,8 +5,8 @@ const PATTERNS_P1: [[[i16; 2]; 3]; 8] = [
     [[1, -1], [2, -2], [3, -3]],    // Diagonal right down
     [[-1, 1], [-2, 2], [-3, 3]],    // Diagonal left up
     [[-1, -1], [-2, -2], [-3, -3]], // Diagonal right up
-    [[1, 0], [2, 0], [3, 0]],       // Horiozontal down
-    [[-1, 0], [-2, 0], [-3, 0]],    // Horizontal up
+    [[1, 0], [2, 0], [3, 0]],       // Down
+    [[-1, 0], [-2, 0], [-3, 0]],    // Up
 ];
 
 fn check_patterns_p1(input: &[&str], x: usize, y: usize) -> usize {

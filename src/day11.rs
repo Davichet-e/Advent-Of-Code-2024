@@ -11,7 +11,7 @@ pub fn day11() {
     // Change 75 by 25 for part 1
     for _ in 0..75 {
         let mut new_stone_counter = HashMap::new();
-        for (&value, &number) in stone_counter.iter() {
+        for (&value, &number) in &stone_counter {
             if value == 0 {
                 *new_stone_counter.entry(1).or_insert(0) += number;
             } else {

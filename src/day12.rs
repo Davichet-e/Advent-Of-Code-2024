@@ -33,7 +33,7 @@ pub fn day12() {
         let mut last_char: Option<char> = None;
         for (x, c) in line.chars().enumerate() {
             let mut entry = if last_char.is_some_and(|lc| lc == c) {
-                let initial_pos = map_initial_pos.get(&(x - 1, y)).unwrap().clone();
+                let initial_pos = *map_initial_pos.get(&(x - 1, y)).unwrap();
                 map_initial_pos.insert((x, y), initial_pos);
                 reverse_map_initial_pos
                     .get_mut(&initial_pos)
@@ -50,9 +50,9 @@ pub fn day12() {
 
             if let Some(neighbour) = get_top_neighbour((x, y), &grid) {
                 if neighbour == c {
-                    let initial_pos = map_initial_pos.get(&(x, y - 1)).unwrap().clone();
+                    let initial_pos = *map_initial_pos.get(&(x, y - 1)).unwrap();
                     if initial_pos.0 != entry.0 || initial_pos.1 != entry.1 {
-                        let (a, p) = accumulator.get(&entry).cloned().unwrap();
+                        let (a, p) = accumulator.get(&entry).copied().unwrap();
                         let curr = accumulator
                             .get_mut(&(initial_pos.0, initial_pos.1, c))
                             .unwrap();
@@ -63,7 +63,7 @@ pub fn day12() {
                             .unwrap()
                             .clone();
                         for a in &old {
-                            *map_initial_pos.get_mut(&a).unwrap() = (initial_pos.0, initial_pos.1);
+                            *map_initial_pos.get_mut(a).unwrap() = (initial_pos.0, initial_pos.1);
                         }
                         reverse_map_initial_pos
                             .get_mut(&(initial_pos.0, initial_pos.1))
@@ -82,7 +82,7 @@ pub fn day12() {
             let mut d_perimeter = 0;
 
             if PART2 {
-                let new_x = x as i16 + 0;
+                let new_x = x as i16;
                 let new_y = y as i16 + 1;
                 if !is_in_grid(new_x, new_y, width, height)
                     || get_char(&grid, new_y as usize, new_x as usize) != c
@@ -106,7 +106,7 @@ pub fn day12() {
                     }
                 }
 
-                let new_x = x as i16 + 0;
+                let new_x = x as i16;
                 let new_y = y as i16 - 1;
                 if !is_in_grid(new_x, new_y, width, height)
                     || get_char(&grid, new_y as usize, new_x as usize) != c
@@ -143,7 +143,7 @@ pub fn day12() {
                 }
 
                 let new_x = x as i16 + 1;
-                let new_y = y as i16 + 0;
+                let new_y = y as i16;
                 if !is_in_grid(new_x, new_y, width, height)
                     || get_char(&grid, new_y as usize, new_x as usize) != c
                 {
@@ -167,7 +167,7 @@ pub fn day12() {
                 }
 
                 let new_x = x as i16 - 1;
-                let new_y = y as i16 + 0;
+                let new_y = y as i16;
                 if !is_in_grid(new_x, new_y, width, height)
                     || get_char(&grid, new_y as usize, new_x as usize) != c
                 {

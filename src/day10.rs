@@ -1,8 +1,8 @@
 use std::collections::{HashMap, HashSet};
 
 const PATTERNS: [[i16; 2]; 4] = [
-    [0, 1],  // Horizontal down
-    [0, -1], // Horizontal up
+    [0, 1],  // Down
+    [0, -1], // Up
     [1, 0],  // Sequential
     [-1, 0], // Reverse sequential
 ];

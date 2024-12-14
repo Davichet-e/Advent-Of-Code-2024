@@ -10,12 +10,11 @@ fn part1(initial_position: (usize, usize), lines: &[&str]) -> HashSet<(usize, us
     while let Some((new_x, new_y)) =
         get_new_coordinates(actual_position, deltas, (input_width, input_height))
     {
-        match lines[new_y].chars().nth(new_x).unwrap() {
-            '#' => deltas = (-deltas.1, deltas.0),
-            _ => {
-                actual_position = (new_x, new_y);
-                visited.insert((new_x, new_y));
-            }
+        if lines[new_y].chars().nth(new_x).unwrap() == '#' {
+            deltas = (-deltas.1, deltas.0);
+        } else {
+            actual_position = (new_x, new_y);
+            visited.insert((new_x, new_y));
         }
     }
     visited
@@ -40,7 +39,7 @@ fn get_new_coordinates(
 fn part2(
     seen_positions: HashSet<(usize, usize)>,
     initial_position: (usize, usize),
-    input: Vec<&str>,
+    input: &[&str],
 ) {
     let result: usize = seen_positions
         .into_iter()
@@ -49,7 +48,7 @@ fn part2(
                 return false;
             }
 
-            is_there_loop(&input, initial_position, (*x, *y))
+            is_there_loop(input, initial_position, (*x, *y))
         })
         .count();
     println!("Part 2: {result}");
@@ -98,5 +97,5 @@ pub fn day6() {
     let seen_positions = part1(initial_position, &input);
     println!("Part 1: {}", seen_positions.len());
 
-    part2(seen_positions, initial_position, input);
+    part2(seen_positions, initial_position, &input);
 }

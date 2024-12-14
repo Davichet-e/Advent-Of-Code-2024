@@ -5,14 +5,14 @@ fn is_in_grid((x, y): (i16, i16), input_width: usize, input_height: usize) -> bo
 }
 
 fn calculate_addition((x, y): (usize, usize), (dx, dy): (i16, i16)) -> (i16, i16) {
-    (x as i16 + dx as i16, y as i16 + dy as i16)
+    (x as i16 + dx, y as i16 + dy)
 }
 
 fn part1(input: &[&str]) {
     let input_height = input.len();
     let input_width = input[0].len();
 
-    let mut map: HashMap<char, Vec<(usize, usize)>> = Default::default();
+    let mut map: HashMap<char, Vec<(usize, usize)>> = HashMap::new();
     let mut antiantennas = HashSet::new();
 
     input.iter().enumerate().for_each(|(y, line)| {
@@ -21,7 +21,7 @@ fn part1(input: &[&str]) {
                 let current_position = (x, y);
                 let antennas = map.entry(c).or_default();
 
-                antennas.iter().for_each(|(antenna_x, antenna_y)| {
+                for (antenna_x, antenna_y) in antennas.iter() {
                     let (dx, dy) = calculate_addition(
                         current_position,
                         (-(*antenna_x as i16), -(*antenna_y as i16)),
@@ -36,7 +36,7 @@ fn part1(input: &[&str]) {
                     if is_in_grid(potential_antiantena, input_width, input_height) {
                         antiantennas.insert(potential_antiantena);
                     }
-                });
+                }
 
                 antennas.push(current_position);
             }
@@ -50,7 +50,7 @@ fn part2(input: &[&str]) {
     let input_height = input.len();
     let input_width = input[0].len();
 
-    let mut map: HashMap<char, Vec<(usize, usize)>> = Default::default();
+    let mut map: HashMap<char, Vec<(usize, usize)>> = HashMap::new();
     let mut antiantennas = HashSet::new();
 
     input.iter().enumerate().for_each(|(y, line)| {
@@ -59,7 +59,7 @@ fn part2(input: &[&str]) {
                 let current_position = (x, y);
                 let antennas = map.entry(c).or_default();
 
-                antennas.iter().for_each(|(antenna_x, antenna_y)| {
+                for (antenna_x, antenna_y) in antennas.iter() {
                     let (dx, dy) = calculate_addition(
                         current_position,
                         (-(*antenna_x as i16), -(*antenna_y as i16)),
@@ -86,7 +86,7 @@ fn part2(input: &[&str]) {
                         antiantennas.insert(antiantenna_as_usize);
                         potential_antiantena = calculate_addition(antiantenna_as_usize, (-dx, -dy));
                     }
-                });
+                }
 
                 antennas.push(current_position);
             }
