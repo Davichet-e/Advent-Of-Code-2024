@@ -53,12 +53,11 @@ def process_claw_machines(data):
         bounds = [(0, None), (0, None)]  # Variables a, b are non-negative
 
         # Solve the linear problem
-        result = linprog(c, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method='revised simplex', integrality=1)
+        result = linprog(c, A_eq=A_eq, b_eq=b_eq, bounds=bounds, integrality=1, options={'presolve':True} )
 
         if result.success:
 
             a, b = map(int, result.x)
-            print(a, b, result.x[1])
             total_sum += 3 * a + 1 * b
         else:
             print("No solution found for:", lines)
